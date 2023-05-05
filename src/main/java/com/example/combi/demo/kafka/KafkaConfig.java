@@ -6,6 +6,7 @@ import java.util.*;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.common.serialization.UUIDDeserializer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +33,7 @@ public class KafkaConfig {
     private String group;
 
     @Bean
-    public ConsumerFactory<UUID, Order> consumerFactory() {
+    public ConsumerFactory<String, Order> ordersConsumerFactory() {
 
         // Creating a map of string-object type
         Map<String, Object> config = new HashMap<>();
@@ -44,27 +45,26 @@ public class KafkaConfig {
                 group);
         config.put(
                 ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG,
-                UUID.class);
+                String.class);
         config.put(
                 ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,
                 JsonDeserializer.class);
 
         // Returning message in JSON format
         return new DefaultKafkaConsumerFactory<>(
-                config, new UUIDDeserializer(),
+                config, new StringDeserializer(),
                 new JsonDeserializer<>(Order.class));
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<UUID,
-            Order>
+    public ConcurrentKafkaListenerContainerFactory<String,Order>
     bookListener()
     {
-        ConcurrentKafkaListenerContainerFactory<
-                UUID, Order> factory
-                = new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(consumerFactory());
+        ConcurrentKafkaListenerContainerFactory<String, Order> factory=new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(ordersConsumerFactory());
 
         return factory;
     }
+
+
 }
