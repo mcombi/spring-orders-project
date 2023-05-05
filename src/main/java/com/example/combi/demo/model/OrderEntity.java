@@ -9,7 +9,7 @@ import javax.persistence.Table;
 public class OrderEntity {
     public String description;
     @Id
-    public int id;
+    public Long id;
     public int quantity;
 
 }

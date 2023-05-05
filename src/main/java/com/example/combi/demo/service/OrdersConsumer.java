@@ -32,7 +32,7 @@ public class OrdersConsumer {
             OrderEntity record=new OrderEntity();
             record.description= payload.description;
             record.quantity = payload.quantity;
-            record.id= Math.toIntExact((Long) payload.id);
+            record.id= payload.id;
             orderRepository.save(record);
             logger.info("message persisted successfully");
         }
