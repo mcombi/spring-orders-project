@@ -52,4 +52,17 @@ public class KafkaConfig {
                 config, new StringDeserializer(),
                 new JsonDeserializer<>(Order.class));
     }
+
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String,
+            Order>
+    bookListener()
+    {
+        ConcurrentKafkaListenerContainerFactory<
+                String, Order> factory
+                = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory());
+
+        return factory;
+    }
 }
