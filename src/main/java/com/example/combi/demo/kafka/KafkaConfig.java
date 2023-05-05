@@ -66,5 +66,13 @@ public class KafkaConfig {
         return factory;
     }
 
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, Order> orderKafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, Order> factory =
+                new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(ordersConsumerFactory());
+        return factory;
+    }
+
 
 }
