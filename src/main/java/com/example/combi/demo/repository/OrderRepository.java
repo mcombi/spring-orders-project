@@ -2,13 +2,12 @@ package com.example.combi.demo.repository;
 import java.util.List;
 import java.util.Optional;
 
-import com.example.combi.demo.model.Order;
+import com.example.combi.demo.model.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-public interface OrderRepository extends JpaRepository<Order, Long> {
+public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
-    List<Order> findAll();
+    List<OrderEntity> findAll();
 
-    Optional<Order> findById(Long Id);
+    Optional<OrderEntity> findById(Long Id);
 }
