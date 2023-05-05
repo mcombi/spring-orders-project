@@ -55,7 +55,7 @@ public class KafkaConfig {
         return new DefaultKafkaConsumerFactory<>(config,new StringDeserializer(),
                 new JsonDeserializer<>(Order.class));
     }
-
+    @Bean
     public ConcurrentKafkaListenerContainerFactory<String, Order> ordersListner()
     {
         ConcurrentKafkaListenerContainerFactory<
