@@ -22,7 +22,7 @@ public class OrdersConsumer {
     private final Logger logger = LoggerFactory.getLogger(OrdersConsumer.class);
     @Autowired
     OrderRepository orderRepository;
-    @KafkaListener(topics = "orders")
+    @KafkaListener(topics = "orders", containerFactory ="orderKafkaListenerContainerFactory" )
     public void consume(ConsumerRecord<String, Order> cr,
                         @Payload Order payload) throws IOException {
         logger.info(String.format("#### -&gt; Consumed message -&gt; %s", payload));
