@@ -52,10 +52,11 @@ public class KafkaConfig {
                 JsonDeserializer.class);
 
         // Returning message in JSON format
-        return new DefaultKafkaConsumerFactory<>(config);
+        return new DefaultKafkaConsumerFactory<>(config,new StringDeserializer(),
+                new JsonDeserializer<>(Order.class));
     }
 
-    public ConcurrentKafkaListenerContainerFactory concurrentKafkaListenerContainerFactory()
+    public ConcurrentKafkaListenerContainerFactory<String, Order> ordersListner()
     {
         ConcurrentKafkaListenerContainerFactory<
                 String, Order> factory

@@ -22,9 +22,8 @@ public class OrdersConsumer {
     private final Logger logger = LoggerFactory.getLogger(OrdersConsumer.class);
     @Autowired
     OrderRepository orderRepository;
-    @KafkaListener(topics = "orders")
-    public void consume(ConsumerRecord<String, Order> cr,
-                        @Payload Order payload) throws IOException {
+    @KafkaListener(topics = "orders", containerFactory = "ordersListner")
+    public void consume(Order payload) throws IOException {
         logger.info(String.format("#### -&gt; Consumed message -&gt; %s", payload));
 
 
@@ -32,7 +31,7 @@ public class OrdersConsumer {
         if (oe.isEmpty()) {
             OrderEntity record=new OrderEntity();
             record.description= payload.description;
-            record.quantity = record.quantity;
+            record.quantity = payload.quantity;
             record.id= Math.toIntExact((Long) payload.id);
             orderRepository.save(record);
             logger.info("message persisted successfully");
