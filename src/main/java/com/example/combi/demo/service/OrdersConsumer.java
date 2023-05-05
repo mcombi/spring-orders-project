@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -20,7 +21,7 @@ public class OrdersConsumer {
     @Autowired
     OrderRepository orderRepository;
     @KafkaListener(topics = "orders")
-    public void consume(Order message) throws IOException {
+    public void consume(UUID uuid, Order message) throws IOException {
         logger.info(String.format("#### -&gt; Consumed message -&gt; %s", message));
 
 
