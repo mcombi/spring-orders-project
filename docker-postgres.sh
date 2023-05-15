@@ -1,1 +1,0 @@
-docker run postgres:14 -e --name ordersdb -e POSTGRES_PASSWORD=mysecretpassword \
