@@ -5,4 +5,6 @@ public class Order {
     public Long id;
     public int quantity;
 
+    public String itemCategory;
+
 }

@@ -33,6 +33,7 @@ public class OrdersConsumer {
             record.description= payload.description;
             record.quantity = payload.quantity;
             record.id= payload.id;
+            record.itemCategory=payload.itemCategory;
             orderRepository.save(record);
             logger.info("message persisted successfully");
         }

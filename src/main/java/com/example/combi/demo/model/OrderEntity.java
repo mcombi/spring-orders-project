@@ -12,4 +12,6 @@ public class OrderEntity {
     public Long id;
     public int quantity;
 
+    public String itemCategory;
+
 }
